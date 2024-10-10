@@ -28,6 +28,9 @@ const FlightSearchForm: React.FC = () => {
   const [returnDate, setReturnDate] = useState<Date | undefined>();
   const today = new Date();
 
+  const departureStr = departureDate ? format(departureDate, "yyyy-MM-dd") : "";
+  const returnStr = returnDate ? format(returnDate, "yyyy-MM-dd") : "";
+
   const handleSelectFrom = (airportName: string) => {
     setSelectedFrom(airportName);
     if (airportName === selectedTo) {
@@ -223,7 +226,15 @@ const FlightSearchForm: React.FC = () => {
 
             {/* Search Flights Button */}
             <Link
-              href="/results"
+              href={{
+                pathname: "/results",
+                query: {
+                  from: selectedFrom,
+                  to: selectedTo,
+                  departure: departureStr,
+                  return: returnStr,
+                },
+              }}
               className="w-[249px] p-4 left-[780px] top-[180px] absolute bg-[#003e39] rounded-[7px] justify-center items-center gap-3 inline-flex"
             >
               <div className="w-4 h-4 relative">
