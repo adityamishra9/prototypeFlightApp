@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { format, parseISO } from "date-fns";
 import { useSearchParams } from "next/navigation";
@@ -21,12 +21,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface FlightSegment {
   airline: string;
   flightCode: string;
-  logoUrl: any;
+  logoUrl: StaticImageData;
   time: string;
   route: string;
   duration: string;
@@ -547,7 +547,15 @@ const SearchOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   );
 };
 
-const page = () => {
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultsContent />
+    </Suspense>
+  );
+};
+
+const ResultsContent: React.FC = () => {
   const searchParams = useSearchParams();
 
   const from = searchParams.get("from");
@@ -562,7 +570,7 @@ const page = () => {
     ? format(parseISO(returnDate as string), "MMM dd")
     : "";
 
-  const getAirportCode = (name: any) => {
+  const getAirportCode = (name: string | null) => {
     const airport = airports.find((airport) => airport.name === name);
     return airport ? airport.code : "N/A";
   };
@@ -767,4 +775,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
