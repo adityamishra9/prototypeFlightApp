@@ -6,7 +6,7 @@ import { mark, leftRight, dropdown } from "@/public/images";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import Link from 'next/link';
+import Link from "next/link";
 import {
   Popover,
   PopoverContent,
@@ -216,7 +216,7 @@ const FlightSearchForm: React.FC = () => {
                         mode="single"
                         selected={returnDate}
                         onSelect={setReturnDate}
-                        fromDate={today}
+                        fromDate={departureDate || today}
                       />
                     </PopoverContent>
                   </Popover>
