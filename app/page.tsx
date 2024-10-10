@@ -1,7 +1,7 @@
 // pages/index.js
 
 import Head from 'next/head';
-import FlightSearchForm from '../components/flightSearchForm/flightSearchForm';
+import FlightSearchForm from './flightSearchForm/page';
 
 export default function Home() {
   return (
